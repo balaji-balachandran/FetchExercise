@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.fetchexercise"
-        minSdk = 24
+        minSdk = 31
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -78,4 +78,6 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0")
 
+    //Splash Screen
+    implementation("androidx.core:core-splashscreen:1.1.0-alpha02")
 }

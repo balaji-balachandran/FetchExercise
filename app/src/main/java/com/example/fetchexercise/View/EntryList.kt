@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -24,6 +25,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.fetchexercise.ViewModel.EntryViewModel
@@ -44,48 +47,46 @@ fun EntryList(viewModel: EntryViewModel = viewModel()) {
 
         if (isLoading) {
             // Show the loading animation
-            Row(
-                Modifier.height(IntrinsicSize.Min),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ){
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .padding(16.dp)
-                )
-                Text("Loading Your data...")
-            }
+            LoadingElement()
         }
-        else if(isError != null){
-            Row(
-                Modifier.height(IntrinsicSize.Min),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ){
-                Text(text="Connection Failed. Check your Internet connection and try again.")
-            }
+        else if(isError){
+            FailedConnection()
         }
         else{
-            // Utilize Lazy to efficiently handle rendering of elements
-
+            // Utilize Lazy Column to efficiently handle rendering of elements
             LazyColumn(modifier = Modifier
-                .padding(12.dp)
                 .fillMaxHeight()) {
-                items(entries) { entry ->
+
+
+                itemsIndexed(entries) { index, entry ->
+                    // Add additional space on top for the first element
+                    if(index == 0)
+                        Spacer(modifier = Modifier.height(12.dp))
+
                     EntryItem(entry)
                     Spacer(modifier = Modifier.height(3.dp))
+                    if(index == entries.size - 1)
+                        Spacer(modifier = Modifier.height(80.dp))
                 }
             }
         }
+
+        // Refresh Button
         ExtendedFloatingActionButton(onClick = { viewModel.fetchData() },
             modifier = Modifier
                 .padding(
-                    horizontal = 16.dp,
+                    horizontal = 28.dp,
                     vertical = 12.dp
                 )
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)) {
-            Text("Refresh")
+            Text("Refresh", fontWeight = FontWeight.Bold)
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun EntryListPreview(){
+    EntryList()
 }

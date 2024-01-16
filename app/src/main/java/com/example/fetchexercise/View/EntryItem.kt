@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -27,11 +28,11 @@ import com.example.fetchexercise.ui.theme.FetchExerciseTheme
 @Composable
 fun EntryItem(entry: Entry){
     ElevatedCard(elevation = CardDefaults.cardElevation(
-        defaultElevation = 3.dp
+        defaultElevation = 4.dp
     ), colors = CardDefaults.cardColors(
-        containerColor = Color.White,
+        containerColor = MaterialTheme.colorScheme.surface,
     ), modifier = Modifier
-        .padding(horizontal = 16.dp, vertical = 1.dp)
+        .padding(horizontal = 28.dp, vertical = 1.dp)
         .fillMaxWidth()
     ) {
         Row(modifier = Modifier.height(IntrinsicSize.Min)){
