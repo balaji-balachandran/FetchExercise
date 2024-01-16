@@ -25,38 +25,61 @@ import androidx.compose.ui.unit.dp
 import com.example.fetchexercise.Model.Entry
 import com.example.fetchexercise.ui.theme.FetchExerciseTheme
 
+/**
+ * Card to display an Entry Object to the user
+ *
+ * @param entry Entry Object to display in a card
+ * @param maxListId Maximum ListID of Entry Objects planning
+ * to be displayed. Used to determine color of tag
+ */
 @Composable
-fun EntryItem(entry: Entry){
-    ElevatedCard(elevation = CardDefaults.cardElevation(
-        defaultElevation = 4.dp
-    ), colors = CardDefaults.cardColors(
-        containerColor = MaterialTheme.colorScheme.surface,
-    ), modifier = Modifier
-        .padding(horizontal = 28.dp, vertical = 1.dp)
-        .fillMaxWidth()
+fun EntryItem(entry: Entry, maxListId: Int = 4) {
+
+
+    ElevatedCard(
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 4.dp
+        ),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface,
+        ),
+        modifier = Modifier
+            .padding(horizontal = 28.dp, vertical = 1.dp)
+            .fillMaxWidth()
     ) {
-        Row(modifier = Modifier.height(IntrinsicSize.Min)){
 
-            val hue = 360f * entry.listId / 4.0f
-            val boxColor = Color.hsl(hue = hue, saturation = 0.67f, lightness = 0.72f)
-            Box(modifier = Modifier
-                .background(boxColor)
-                .fillMaxHeight()
-                .width(8.dp))
+        // IntrinsicSize.Min ensures box and text fit correctly
+        Row(modifier = Modifier.height(IntrinsicSize.Min)) {
+            // Creates a unique color for each listId and assigns each box the color
+            val hue = 360f * entry.listId / maxListId
+            val tagColor = Color.hsl(hue = hue, saturation = 0.67f, lightness = 0.72f)
+
+            Box(
+                modifier = Modifier
+                    .background(tagColor)
+                    .fillMaxHeight()
+                    .width(8.dp)
+            )
+
+            // Holds the entry information
             Column(Modifier.padding(12.dp)) {
-                Text(entry.name ?: "", fontWeight = FontWeight.Bold, fontSize = TextUnit(32f, TextUnitType.Sp))
-                Text(text="List ID: ${entry.listId}")
-                Text("ID: ${entry.id}")
+                Text(
+                    text = entry.name ?: "",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = TextUnit(32f, TextUnitType.Sp)
+                )
+                Text(text = "List ID: ${entry.listId}")
+                Text(text = "ID: ${entry.id}")
             }
-
         }
     }
 }
 
+// Preview of Entry Item Card
 @Preview(showBackground = true)
 @Composable
 fun EntryItemPreview() {
     FetchExerciseTheme {
-        EntryItem(Entry(id=12, name="Item 12", listId = 2))
+        EntryItem(Entry(id = 12, name = "Item 12", listId = 2))
     }
 }

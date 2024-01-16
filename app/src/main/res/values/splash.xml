@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Splash Screen for the Light theme of the app-->
 <resources>
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <item name="android:windowSplashScreenBackground">#ffffff</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/wifi_off</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/dog_dark</item>
         <item name="postSplashScreenTheme">@style/Theme.FetchExercise</item>
     </style>
 </resources>

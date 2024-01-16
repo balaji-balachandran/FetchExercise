@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<!-- Splash Screen for the Dark theme of the app-->
+<resources>
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="android:windowSplashScreenBackground">#1b1b1b</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/dog_light</item>
+        <item name="postSplashScreenTheme">@style/Theme.FetchExercise</item>
+    </style>
+</resources>
