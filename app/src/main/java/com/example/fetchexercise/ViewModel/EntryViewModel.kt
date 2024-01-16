@@ -15,7 +15,14 @@ class EntryViewModel : ViewModel() {
     private val _entries : MutableStateFlow<List<Entry>> = MutableStateFlow(emptyList())
     val entries: StateFlow<List<Entry>> = _entries.asStateFlow()
 
+    private val _isLoading : MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val isLoading : StateFlow<Boolean> = _isLoading.asStateFlow()
+
+    private val _isError : MutableStateFlow<String?> = MutableStateFlow(null)
+    val isError : StateFlow<String?> = _isError.asStateFlow()
+
     fun fetchData() {
+        _isLoading.value = true
         val baseURL = "https://fetch-hiring.s3.amazonaws.com/"
         val api = Retrofit.Builder()
             .baseUrl(baseURL)
@@ -38,13 +45,15 @@ class EntryViewModel : ViewModel() {
 
                         // Update the state variable
                         _entries.value = entryList
-
+                        _isLoading.value = false
                     }
                 }
             }
 
             override fun onFailure(call: Call<List<Entry>>, t: Throwable) {
                 println("FAILED: ${t.message}")
+                _isError.value = "There was an error fetching data"
+                _isLoading.value = false
             }
 
         })
