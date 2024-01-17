@@ -7,7 +7,7 @@ This app requires API Level 31 or above.
 
 ## How to Run
 To run the app, go to Code on the repository and copy the clone link. Then, open Android Studio and navigate to 
-File -> New -> Import Project From Version Control... and copy the link to the repository and hit finish. Then,
+**File -> New -> Import Project From Version Control...** and copy the link to the repository and hit finish. Then,
 simply build the app with a device running API Level 31 or above.
 
 
